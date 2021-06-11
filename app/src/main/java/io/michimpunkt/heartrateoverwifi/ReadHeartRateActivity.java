@@ -26,6 +26,8 @@ public class ReadHeartRateActivity extends Activity implements SensorEventListen
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
         sensorManager.registerListener(this, heartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        Log.i(getClass().getName(), "onCreate() FINISHED");
     }
 
     @Override
@@ -34,7 +36,7 @@ public class ReadHeartRateActivity extends Activity implements SensorEventListen
             float heartRate = event.values[0];
             TextView tvHeartRate = findViewById(R.id.tvHeartRate);
             tvHeartRate.setText(String.valueOf(Math.round(heartRate)) + " BPM");
-            Log.i("HEART RATE", event.values + " BPM - " + event.accuracy + " Accuracy @"+event.timestamp);
+            Log.i(getClass().getName(), event.values + " BPM - " + event.accuracy + " Accuracy @"+event.timestamp);
         }
     }
 
@@ -46,12 +48,12 @@ public class ReadHeartRateActivity extends Activity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("PAUSE", "PAUSE");
+        Log.i(getClass().getName(), "onPause()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("DESTROY", "DESTROY");
+        Log.i(getClass().getName(), "onDestroy()");
     }
 }

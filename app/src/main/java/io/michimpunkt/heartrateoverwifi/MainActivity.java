@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,30 +35,39 @@ public class MainActivity extends Activity {
         setContentView(binding.getRoot());
 
         ActivityCompat.requestPermissions(this, PERMS, PERMSCODE);
+
+        Log.i(getClass().getName(), "onCreate() FINISHED");
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == PERMSCODE && grantResults.length == PERMS.length) {
-            boolean allPerms = true;
-            for (int result : grantResults) {
-                if (result != PackageManager.PERMISSION_GRANTED)
-                    allPerms = false;
-            }
-            if (allPerms) {
-                setupWithPerms();
+        if (requestCode == PERMSCODE) {
+            if (grantResults.length == PERMS.length) {
+                boolean allPerms = true;
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        allPerms = false;
+                    }
+                }
+                if (allPerms) {
+                    setupWithPerms();
+                } else {
+                    Log.e(getClass().getName(), "noPerms() !allPerms");
+                    noPerms();
+                }
             } else {
+                Log.e(getClass().getName(), "noPerms() PERMS.length");
                 noPerms();
             }
-        } else {
-            noPerms();
         }
     }
 
+    // we have all perms, let's go!
     private void setupWithPerms() {
         findViewById(R.id.btnStart).setEnabled(true);
+        Log.i(getClass().getName(), "setupWithPerms()");
     }
 
     // if we don't have any permissions, we can not use the app
@@ -71,6 +81,7 @@ public class MainActivity extends Activity {
         // show next activity
         Intent intent = new Intent(this, ReadHeartRateActivity.class);
         startActivity(intent);
+        Log.i(getClass().getName(), "onBtnStartClicked()");
     }
 
 }
