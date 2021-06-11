@@ -23,7 +23,8 @@ public class MainActivity extends Activity {
     private static String[] PERMS = new String[] {
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.BODY_SENSORS
+            Manifest.permission.BODY_SENSORS,
+            Manifest.permission.INTERNET
     };
     private static int PERMSCODE = 1;
 
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
 
         ActivityCompat.requestPermissions(this, PERMS, PERMSCODE);
 
-        Log.i(getClass().getName(), "onCreate() FINISHED");
+        Log.i(getClass().getSimpleName(), "onCreate() FINISHED");
     }
 
     @Override
@@ -46,19 +47,22 @@ public class MainActivity extends Activity {
         if (requestCode == PERMSCODE) {
             if (grantResults.length == PERMS.length) {
                 boolean allPerms = true;
-                for (int result : grantResults) {
-                    if (result != PackageManager.PERMISSION_GRANTED) {
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                         allPerms = false;
+                        Log.e(getClass().getSimpleName(), "NO PERM "+permissions[i]);
+                    } else {
+                        Log.i(getClass().getSimpleName(), "We have perms for "+permissions[i]);
                     }
                 }
                 if (allPerms) {
                     setupWithPerms();
                 } else {
-                    Log.e(getClass().getName(), "noPerms() !allPerms");
+                    Log.e(getClass().getSimpleName(), "noPerms() !allPerms");
                     noPerms();
                 }
             } else {
-                Log.e(getClass().getName(), "noPerms() PERMS.length");
+                Log.e(getClass().getSimpleName(), "noPerms() PERMS.length");
                 noPerms();
             }
         }
@@ -67,7 +71,7 @@ public class MainActivity extends Activity {
     // we have all perms, let's go!
     private void setupWithPerms() {
         findViewById(R.id.btnStart).setEnabled(true);
-        Log.i(getClass().getName(), "setupWithPerms()");
+        Log.i(getClass().getSimpleName(), "setupWithPerms()");
     }
 
     // if we don't have any permissions, we can not use the app
@@ -81,7 +85,7 @@ public class MainActivity extends Activity {
         // show next activity
         Intent intent = new Intent(this, ReadHeartRateActivity.class);
         startActivity(intent);
-        Log.i(getClass().getName(), "onBtnStartClicked()");
+        Log.i(getClass().getSimpleName(), "onBtnStartClicked()");
     }
 
 }
