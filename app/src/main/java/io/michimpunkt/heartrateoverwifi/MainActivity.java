@@ -2,8 +2,10 @@ package io.michimpunkt.heartrateoverwifi;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,13 +57,20 @@ public class MainActivity extends Activity {
     }
 
     private void setupWithPerms() {
-
+        findViewById(R.id.btnStart).setEnabled(true);
     }
 
     // if we don't have any permissions, we can not use the app
     private void noPerms() {
         Toast.makeText(this, "We need those permissions for the app to work..", Toast.LENGTH_SHORT).show();
         System.exit(0);
+    }
+
+    // everything is set up and ready to go
+    public void onBtnStartClicked(View view) {
+        // show next activity
+        Intent intent = new Intent(this, ReadHeartRateActivity.class);
+        startActivity(intent);
     }
 
 }

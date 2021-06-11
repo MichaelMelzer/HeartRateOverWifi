@@ -37,6 +37,8 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:enabled="false"
+                android:onClick="onBtnStartClicked"
                 android:text="Start"
                 android:textSize="14sp" />
 
