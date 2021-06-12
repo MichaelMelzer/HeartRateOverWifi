@@ -37,6 +37,10 @@ public class HttpServer extends NanoHTTPD {
             while ((line = br.readLine()) != null) {
                 ret += line;
             }
+            // inject websocket address
+            String wsaddress = "ws://"+parent.getWebSocketServer().getHostname()+":"+parent.getWebSocketServer().getListeningPort()+"/";
+            ret = ret.replace("{WSADDRESS}", wsaddress);
+
             Log.i(getClass().getSimpleName(), "Serving session...");
             return newFixedLengthResponse(Response.Status.OK, "text/html", ret);
         } catch (IOException e) {

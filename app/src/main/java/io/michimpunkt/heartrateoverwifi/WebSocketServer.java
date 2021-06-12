@@ -19,7 +19,7 @@ public class WebSocketServer extends NanoWSD {
 
     public WebSocketServer(String hostname, int port) throws IOException {
         super(hostname, port);
-        start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+        start(0);
     }
 
     @Override

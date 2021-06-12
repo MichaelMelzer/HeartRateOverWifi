@@ -21,6 +21,11 @@ public class ReadHeartRateActivity extends Activity implements SensorEventListen
 
     private TextView mTextView;
     private ActivityReadHeartRateBinding binding;
+
+    public WebSocketServer getWebSocketServer() {
+        return webSocketServer;
+    }
+
     private WebSocketServer webSocketServer;
     private HttpServer httpServer;
 
@@ -70,14 +75,18 @@ public class ReadHeartRateActivity extends Activity implements SensorEventListen
             TextView tvHeartRate = findViewById(R.id.tvHeartRate);
             tvHeartRate.setText(String.valueOf(Math.round(heartRate)) + " BPM");
 
-            for (NanoWSD.WebSocket socket : webSocketServer.getConnections()) {
-                try {
-                    socket.send(String.valueOf(Math.round(heartRate)));
-                } catch (IOException e) {
-                    // TODO add user feedback
-                    Log.e(getClass().getSimpleName(), "Could not send status", e);
+            // send data async
+            new Thread(() -> {
+                // TODO kill thread to prevent adge casses
+                for (NanoWSD.WebSocket socket : webSocketServer.getConnections()) {
+                    try {
+                        socket.send(String.valueOf(Math.round(heartRate)));
+                    } catch (IOException e) {
+                        // TODO add user feedback
+                        Log.e(getClass().getSimpleName(), "Could not send status", e);
+                    }
                 }
-            }
+            }).start();
 
             Log.i(getClass().getSimpleName(), event.values + " BPM - " + event.accuracy + " Accuracy @"+event.timestamp);
         }
