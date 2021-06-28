@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".MainActivity"
+    tools:context=".ReadHeartRateActivity"
     tools:deviceIds="wear">
 
     <ScrollView
@@ -18,30 +18,43 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="36sp" />
+
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/tvHeartRate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Heart Rate Over WiFi"
-                android:textSize="14sp" />
+                android:text="-- BPM"
+                android:textColor="#f33"
+                android:textSize="30dp" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20sp" />
 
-            <Button
-                android:id="@+id/btnStart"
-                style="@android:style/Widget.DeviceDefault.Button.Small"
-                android:layout_width="100sp"
+            <TextView
+                android:id="@+id/tvWebsource"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:enabled="false"
-                android:onClick="onBtnStartClicked"
-                android:text="Start"
+                android:gravity="center"
+                android:text="Web source:"
+                android:textColor="#aaa"
                 android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/tvIP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="(error)"
+                android:textColor="#aaa"
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 

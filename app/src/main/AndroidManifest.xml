@@ -3,6 +3,10 @@
     package="io.michimpunkt.heartrateoverwifi">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -24,6 +28,9 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
+        <activity
+            android:name=".ReadHeartRateActivity"
+            android:label="@string/title_activity_read_heart_rate"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script language="JavaScript" type="text/javascript">
+            window.onload = function() {
+                webSocket = new WebSocket("{WSADDRESS}");
+                webSocket.onopen = function(evt) {
+                    writeToScreen("CONNECTED", evt);
+                };
+                webSocket.onclose = function(evt) {
+                    writeToScreen("DISCONNECTED", evt);
+                };
+                webSocket.onmessage = function(evt) {
+                    writeToScreen(evt.data, evt);
+                };
+                webSocket.onerror = function(evt) {
+                    writeToScreen("ERROR", evt);
+                };
+            };
+
+            function writeToScreen(msg, evt) {
+                console.log("writeToScreen: "+msg);
+                console.log(evt);
+                document.getElementById("currentHeartRate").innerText = msg;
+            }
+        </script>
+    </head>
+    <body>
+        <span id="currentHeartRate">Waiting...</span>
+    </body>
+</html>
